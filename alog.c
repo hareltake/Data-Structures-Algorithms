@@ -74,12 +74,14 @@ void main () {
 		b = b->link;
 		i++;
 	}
+	free(a);
+	free(b);
 	a = NULL;
 	b = NULL;
 	PolyNode *result = polyAdd(a1, b1),
 			 *p = NULL;
 	printf("%d\n", result->link->exp);
-	while (result->link != NULL) {
+	/*while (result->link != NULL) {
 		p = result;
 		result = result->link;
 		printf("%f*x^", result->coef);
@@ -95,5 +97,5 @@ void main () {
 	while (b1->link != NULL) {
 		b1 = b1->link;
 		free(b1);
-	}
+	}*/
 }

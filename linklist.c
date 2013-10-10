@@ -20,7 +20,7 @@ void revers (List *head) {
 	head = p;
 }
 
-int *search (List *head, int elem) {
+/*int *search (List *head, int elem) {
 	List *p = head;
 	int numArr = ;
 	while (p != NULL) {
@@ -41,9 +41,9 @@ List *append (List *head, int elem) {
 	List *newElem;
 	newElem->data = elem;
 	newElem->next = NULL;
-	q.next = newElem;
+	q->next = newElem;
 	return head;
-}
+}*/
 
 List *delete (List *head, int elem) {
 	List *p, *q;
@@ -77,22 +77,33 @@ void printOut (List *head) {
 }
 
 void main () {
-	List *head = NULL;
-	//read file here
+	List* head = (List *)malloc(sizeof(List)), * p;
+	p = head;
+	FILE* fp;
+	int data;
+	fp = fopen("test", "r");
+	while (fscanf(fp, "%d", &data) != -1) {
+		p->next = (List *)malloc(sizeof(List));
+		p->data = data;
+		printf("%d ", p->data);
+		p = p->next;
+	}
+	free(p);
+	p = NULL;
 	int c, i = 1, c1;
-	scanf(&c);
+	scanf("%d", &c);
 	while (i)
 		switch (c) {
 			case 1:
-				scanf(&c1);
-				search(head, c1);
+				scanf("%d", &c1);
+				//search(head, c1);
 				break;
 			case 2:
-				scanf(&c1);
-				append(head, c1);
+				scanf("%d", &c1);
+				//append(head, c1);
 				break;
 			case 3:
-				scanf(&c1);
+				scanf("%d", &c1);
 				delete(head, c1);
 				break;
 			case 4:
