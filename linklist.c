@@ -13,11 +13,15 @@ void revers (List *head) {
 	p->next = head;
 	while (head->next != NULL) {
 		q = head->next;
+		printf("%d ", q->data);
 		head->next = q->next;
+		printf("%d ", head->data);
 		q->next = p;
 		p = q;
+		printf("%d\n", p->data);
 	}
 	head = p;
+	printf("%d\n", head->data);
 }
 
 /*int *search (List *head, int elem) {
@@ -85,14 +89,14 @@ void main () {
 	while (fscanf(fp, "%d", &data) != -1) {
 		p->next = (List *)malloc(sizeof(List));
 		p->data = data;
-		printf("%d ", p->data);
 		p = p->next;
 	}
 	free(p);
 	p = NULL;
 	int c, i = 1, c1;
-	scanf("%d", &c);
-	while (i)
+	while (i) {
+		printf("选择操作：");
+		scanf("%d", &c);
 		switch (c) {
 			case 1:
 				scanf("%d", &c1);
@@ -114,8 +118,10 @@ void main () {
 				break;
 			case 6:
 				revers(head);
+				//printf("%d\n", head->data);
 				break;
 			case 0:
 				i = 0;
 		}
+	}
 }

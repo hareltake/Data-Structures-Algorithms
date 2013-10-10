@@ -63,7 +63,7 @@ void main () {
 			 *b = (PolyNode *) malloc(sizeof(PolyNode)),
 			 *a1 = a, *b1 = b;
 	int i = 2;
-	while (i < 5) {
+	/*while (i < 5) {
 		a->coef = i;
 		a->exp = i - 1;
 		a->link = (PolyNode *) malloc(sizeof(PolyNode));
