@@ -6,78 +6,82 @@ typedef struct list {
 	struct list *next;
 } List;
 
-void revers (List *head) {
-	List *p, *q; 
-	p = head->next;
-	head->next = p->next;
-	p->next = head;
-	while (head->next != NULL) {
-		q = head->next;
-		printf("%d ", q->data);
-		head->next = q->next;
-		printf("%d ", head->data);
-		q->next = p;
-		p = q;
-		printf("%d\n", p->data);
-	}
-	head = p;
-	printf("%d\n", head->data);
-}
-
-/*int *search (List *head, int elem) {
+void search (List *head, int elem) {
 	List *p = head;
-	int numArr = ;
+	int i = 0;
 	while (p != NULL) {
-		if (p->data == elem)
-
+		if (p != head) {
+			i++;
+			if (p->data == elem)
+				printf("你查找的是：%d ,存在位置:%d", elem, i);
+		}
 		p = p->next;
 	}
-	return numArr;
+	printf("\n");
 }
 
 List *append (List *head, int elem) {
-	List *p, *q;
-	p->next = head;
+	List *p;
+	p = head;
 	while (p->next != NULL) {
-		q = p;
 		p = p->next;
 	}
-	List *newElem;
+	List *newElem = (List *)malloc(sizeof(List));
 	newElem->data = elem;
 	newElem->next = NULL;
-	q->next = newElem;
+	p->next = newElem;
 	return head;
-}*/
+}
 
 List *delete (List *head, int elem) {
-	List *p, *q;
-	p->next = head;
+	List *p = head, *q, *r;
 	while (p->next != NULL) {
-		q = p;
-		if (p->next->data == elem)
-			q->next = p->next->next;
-			//return head;
+		r = p;
 		p = p->next;
+		if (p->data == elem) {
+			q = p;
+			r->next = p->next;
+			free(q);
+		}
 	}
 	return head;
 }
 
 int getLength (List *head) {
-	List *p;
-	p->next = head;
+	List *p = head;
 	int i = 0;
-	while (p->next != NULL) {
-		i++;
+	while (p != NULL) {
+		if (p != head)
+			i++;
 		p = p->next;
 	}
 	return i;
 }
 
 void printOut (List *head) {
-	List *p;
+	List *p = head;
+	while (p != NULL) {
+		if (p != head)
+			printf("%d ", p->data);
+		p = p->next;
+	}
+	printf("\n");
+}
+
+List* revers (List *head) {		//list逆序
+	List *p, *q, *c = head;
+	head = head->next;
+	p = head->next;
+	head->next = p->next;
 	p->next = head;
-	while (p->next != NULL)
-		printf("%d\n", p->next->data);
+	while (head->next != NULL) {
+		q = head->next;
+		head->next = q->next;
+		q->next = p;
+		p = q;
+	}
+	head = p;
+	return head;
 }
 
 void main () {
@@ -88,37 +92,46 @@ void main () {
 	fp = fopen("test", "r");
 	while (fscanf(fp, "%d", &data) != -1) {
 		p->next = (List *)malloc(sizeof(List));
-		p->data = data;
 		p = p->next;
+		p->data = data;
+		p->next = NULL;
 	}
-	free(p);
 	p = NULL;
 	int c, i = 1, c1;
 	while (i) {
-		printf("选择操作：");
+		printf("选择操作：\n");
+		printf("1 查询\n");
+		printf("2 添加\n");
+		printf("3 删除\n");
+		printf("4 获取长度\n");
+		printf("5 输出全部\n");
+		printf("6 逆序重建\n");
+		printf("0 退出\n");
 		scanf("%d", &c);
 		switch (c) {
 			case 1:
+				printf("输入target数字:");
 				scanf("%d", &c1);
-				//search(head, c1);
+				search(head, c1);
 				break;
 			case 2:
+				printf("输入target数字:");
 				scanf("%d", &c1);
-				//append(head, c1);
+				head = append(head, c1);
 				break;
 			case 3:
+				printf("输入target数字:");
 				scanf("%d", &c1);
-				delete(head, c1);
+				head = delete(head, c1);
 				break;
 			case 4:
-				getLength(head);
+				printf("%d\n", getLength(head));
 				break;
 			case 5:
 				printOut(head);
 				break;
 			case 6:
-				revers(head);
-				//printf("%d\n", head->data);
+				head->next = revers(head);
 				break;
 			case 0:
 				i = 0;
